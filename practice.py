@@ -27,11 +27,11 @@ def summary(lista):
     p1q = percentil(lista, 0.25)
     p3q = percentil(lista, 0.75)
     
-    print('Mínimo = ', mini)
-    print('Máximo = ', maxi)
-    print('Mediana = ', mediana(lista))
-    print('1er Cuartil = ', p1q)
-    print('3er Cuartil = ', p3q)
+    print('Mínimo =', mini)
+    print('Máximo =', maxi)
+    print('Mediana =', mediana(lista))
+    print('1er Cuartil =', p1q)
+    print('3er Cuartil =', p3q)
     
 def media(lista):
     return sum(lista)/len(lista)
@@ -41,7 +41,7 @@ def desestan(lista):
     for i in lista:
         var += (float(i)-media(lista))**2
     ds = (var/len(lista))**(1/2)
-    print('Desviación estandar = ', ds)
+    print('Desviación estandar =', ds)
 
 def correlacion(xi, yi):
     endo, sor1, sor2 = 0, 0, 0
@@ -51,39 +51,42 @@ def correlacion(xi, yi):
         sor1, sor2 = sor1 + x**2, sor2 + y**2
     return endo/(sor1**(1/2) * sor2**(1/2))
 
-def separar(lista):
+def separar(l1):
     aux = []
     d = {}
-    for i in lista:
+    for i in l1:
         if i is not np.nan:
             if ';' in i: 
                 i = i.split(';')
             aux.append(i)
         else:
             aux.append('NaN')
-    for lista2 in aux:
-        if lista2 != 'NaN':
-            if isinstance(lista2, list): 
-                for item in lista2:
-                    if item not in d:
-                        d[item] = 0
+    for l2 in aux:
+        if l2 != 'NaN':
+            if isinstance(l2, list): 
+                for j in l2:
+                    if j not in d:
+                        d[j] = 0
             else:
-                if lista2 not in d:
-                        d[lista2] = 0
+                if l2 not in d:
+                    d[l2] = 0
     return aux, d
 
-def agrupar(lista):
-    country, d_c = separar(country)
-        for i in d_c.keys():
-            l_s = []
-            for s, c in zip(salary, country):
-                if isinstance(c, list): 
-                    for item in c:
-                        if item == i and not mt.isnan(s) and item != 'NaN':
-                            l_s.append(s)
-                elif c == i and not mt.isnan(s) and c != 'NaN':
-                    l_s.append(s)
-            d_c[i] = l_s
+def agrupar(dato1, dato2):
+    lista = []
+    dato2, l1 = separar(dato2)
+    for i in l1.keys():
+        l2 = []
+        for d1, d2 in zip(dato1, dato2):
+            if isinstance(d2, list): 
+                for j in d2:
+                    if j == i and not mt.isnan(d1) and j != 'NaN':
+                        l2.append(d1)
+            elif d2 == i and not mt.isnan(d1) and d2 != 'NaN':
+                l2.append(d1)
+        l1[i] = l2
+        lista.append(l1[i])
+    return lista
 
 w_d = '../data/'
 i_f = w_d + 'survey_results_public.csv'
@@ -101,14 +104,61 @@ edad = data['Age'].tolist()
 genero = data['Gender'].tolist()
 etnia = data['Ethnicity'].tolist()
 
-# Inciso 1
-#h = [sa for sa,ge in zip(salario, genero) if ge == 'Man' and not mt.isnan(sa)]
-#m = [sa for sa,ge in zip(salario, genero) if ge == 'Woman' and not mt.isnan(sa)]
-#
-#print('Salario de los Hombres:')
-#summary(h)
-#desestan(h)
-#print('Salario de las Mujeres:')
-#summary(m)
-#desestan(m)
-#plt.boxplot([h,m])
+## Inciso 1
+#l = list(separar(genero)[1].keys())
+#for i in range(len(l)):
+#    s_g = agrupar(salario, genero)
+#    print('-------', l[i], '-------')
+#    summary(s_g[i])
+#    desestan(s_g[i])
+#    plt.boxplot(s_g[i])
+#    plt.show()
+
+## Inciso 2
+#l = list(separar(etnia)[1].keys())
+#for i in range(len(l)):
+#    s_e = agrupar(salario, etnia)
+#    print('-------', l[i], '-------')
+#    summary(s_e[i])
+#    desestan(s_e[i])
+#    plt.boxplot(s_e[i])
+#    plt.show()
+
+## Inciso 3
+#l = list(separar(tdesar)[1].keys())
+#for i in range(len(l)):
+#    s_d = agrupar(salario, tdesar)
+#    print('-------', l[i], '-------')
+#    summary(s_d[i])
+#    desestan(s_d[i])
+#    plt.boxplot(s_d[i])
+#    plt.show()
+    
+# Inciso 4
+#l = list(separar(pais)[1].keys())
+#for i in range(len(l)):
+#    s_p = agrupar(salario, pais)
+#    print('-------', l[i], '-------')
+#    if s_p[i] == []:
+#        print('No se encontraron datos')
+#    else:
+#        print('Mediana =', mediana(s_p[i]))
+#        print('Media =', media(s_p[i]))
+#        desestan(s_p[i])
+
+# Inciso 5
+#frecPal = []
+#for i in tdesar:
+#    frecPal.append(tdesar.count(i))
+#    plt.title("Frequencies of responses for each developer type")
+#    plt.bar(range(len(frecPal)), list(frecPal), edgecolor='black', align='center')
+#    plt.show()
+
+# Inciso 9
+l = list(separar(lenprog)[1].keys())
+for i in range(len(l)):
+    e_l = agrupar(edad, lenprog)
+    print('-------', l[i], '-------')
+    print('Mediana =', mediana(e_l))
+    print('Media =', media(e_l))
+    desestan(e_l)    
