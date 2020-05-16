@@ -107,30 +107,33 @@ etnia = data['Ethnicity'].tolist()
 
 # Inciso 1
 #l = list(separar(genero)[1].keys())
+#s_g = agrupar(salario, genero)
 #for i in range(len(l)):
-#    s_g = agrupar(salario, genero)
 #    print('-------', l[i], '-------')
 #    summary(s_g[i])
+#    media(s_g[i])
 #    desestan(s_g[i])
 #    plt.boxplot(s_g[i])
 #    plt.show()
 
 # Inciso 2
 #l = list(separar(etnia)[1].keys())
+#s_e = agrupar(salario, etnia)
 #for i in range(len(l)):
-#    s_e = agrupar(salario, etnia)
 #    print('-------', l[i], '-------')
 #    summary(s_e[i])
+#    media(s_e[i])
 #    desestan(s_e[i])
 #    plt.boxplot(s_e[i])
 #    plt.show()
 
 # Inciso 3
 #l = list(separar(tdesar)[1].keys())
+#s_d = agrupar(salario, tdesar)
 #for i in range(len(l)):
-#    s_d = agrupar(salario, tdesar)
 #    print('-------', l[i], '-------')
 #    summary(s_d[i])
+#    media(s_d[i])
 #    desestan(s_d[i])
 #    plt.boxplot(s_d[i])
 #    plt.show()
