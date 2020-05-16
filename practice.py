@@ -140,8 +140,8 @@ etnia = data['Ethnicity'].tolist()
     
 # Inciso 4
 #l = list(separar(pais)[1].keys())
+#s_p = agrupar(salario, pais)
 #for i in range(len(l)):
-#    s_p = agrupar(salario, pais)
 #    print('-------', l[i], '-------')
 #    if s_p[i] == []:
 #        print('No se encontraron datos')
